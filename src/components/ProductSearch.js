@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { ThemeContext } from '../App';
-import { LanguageContext } from '../contexts/LanguageContext'; // Assurez-vous que le chemin est correct
+import { LanguageContext } from '../context/LanguageContext'; // Assurez-vous que le chemin est correct
 import useDebounce from '../hooks/useDebounce';
-import { ThemeContext } from '../App'; // Assure-toi que le chemin est correct
+import { ThemeContext } from '../App';  // Utilisation du bon chemin relatif
+
+
+
+
 
 
 const ProductSearch = ({ onSearch }) => {

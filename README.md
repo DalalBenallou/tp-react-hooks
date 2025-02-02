@@ -22,3 +22,48 @@ L'objectif de cet exercice était d'implémenter une fonctionnalité de recherch
 ![Après la recherche](./assets/after.png)
 
 
+## Exercice 2 : Context et Internationalisation
+
+### Solution
+Pour cet exercice, j'ai créé un contexte (`LanguageContext`) pour gérer la langue de l'application (anglais/français). Ce contexte permet de rendre l'application multilingue en fonction du choix de l'utilisateur.
+
+### Capture d'écran
+### Capture d'écran avant la recherche :
+![Avant la recherche](./assets/before2.png)
+
+### Capture d'écran après avoir saisi un terme de recherche :
+![Après la recherche](./assets/after2.png)
+
+### Difficultés rencontrées
+- Gérer l'état global de la langue a été un peu difficile au début, mais avec l'aide de `useContext`, j'ai pu rendre l'état accessible à tous les composants sans avoir besoin de passer les props manuellement.
+
+---
+## Exercice 3 : Hooks Personnalisés
+
+### Solution
+J'ai créé un hook personnalisé `useTheme` pour simplifier l'utilisation du thème sombre/clair dans toute l'application. Ce hook permet d'utiliser facilement et de manière réutilisable l'état du thème dans n'importe quel composant.
+
+### Capture d'écran
+### Capture d'écran avant la recherche :
+![Avant la recherche](./assets/before3.png)
+
+### Capture d'écran après avoir saisi un terme de recherche :
+![Après la recherche](./assets/after3.png)
+
+### Difficultés rencontrées
+- Au début, je n'étais pas sûr de la meilleure manière d'exposer le contexte via un hook personnalisé. Après quelques recherches, j'ai compris que l'utilisation de `useContext` dans un hook personnalisé simplifie la gestion de l'état.
+
+---
+## Exercice 4 : Gestion Asynchrone et Pagination
+
+### Solution
+Dans cet exercice, j'ai intégré une API externe pour récupérer des produits. J'ai utilisé `useEffect` pour effectuer la requête API et gérer l'état des produits récupérés. La pagination est gérée en stockant la page actuelle et les produits à afficher dans l'état.
+
+### Capture d'écran
+(Insérez ici une capture d'écran montrant les produits avec pagination)
+
+### Difficultés rencontrées
+- J'ai eu quelques difficultés avec la gestion de la pagination et l'optimisation des appels API pour ne récupérer les produits que lorsque c'était nécessaire. J'ai résolu cela en ajoutant des conditions dans le `useEffect` pour ne récupérer les données que lorsque la page change.
+
+---
+

@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
-import { ThemeContext } from '../App';
-import { ThemeContext } from '../App'; // Assure-toi que le chemin est correct
+
+import { ThemeContext } from '../App';  // Utilisation du bon chemin relatif
+import { LanguageContext } from '../context/LanguageContext';  // Chemin relatif correct
+
+
 
 
 const ThemeToggle = () => {

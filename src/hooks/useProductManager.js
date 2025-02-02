@@ -1,31 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const useProductManager = () => {
   const [products, setProducts] = useState([]);
 
-  // Ajouter un produit
-  const addProduct = (product) => {
-    setProducts((prevProducts) => [...prevProducts, product]);
+  const addProduct = (newProduct) => {
+    setProducts([...products, newProduct]);
   };
 
-  // Supprimer un produit par son id
   const removeProduct = (productId) => {
-    setProducts((prevProducts) => prevProducts.filter(product => product.id !== productId));
+    setProducts(products.filter(product => product.id !== productId));
   };
 
-  // Mettre à jour un produit
-  const updateProduct = (updatedProduct) => {
-    setProducts((prevProducts) => prevProducts.map(product =>
-      product.id === updatedProduct.id ? updatedProduct : product
-    ));
+  const updateProduct = (productId, updatedName, updatedPrice) => {
+    setProducts(
+      products.map(product =>
+        product.id === productId ? { ...product, name: updatedName, price: updatedPrice } : product
+      )
+    );
   };
 
-  return {
-    products,
-    addProduct,
-    removeProduct,
-    updateProduct
-  };
+  return { products, addProduct, removeProduct, updateProduct };
 };
 
 export default useProductManager;
