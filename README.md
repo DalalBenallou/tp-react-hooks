@@ -59,8 +59,6 @@ J'ai créé un hook personnalisé `useTheme` pour simplifier l'utilisation du th
 ### Solution
 Dans cet exercice, j'ai intégré une API externe pour récupérer des produits. J'ai utilisé `useEffect` pour effectuer la requête API et gérer l'état des produits récupérés. La pagination est gérée en stockant la page actuelle et les produits à afficher dans l'état.
 
-### Capture d'écran
-(Insérez ici une capture d'écran montrant les produits avec pagination)
 
 ### Difficultés rencontrées
 - J'ai eu quelques difficultés avec la gestion de la pagination et l'optimisation des appels API pour ne récupérer les produits que lorsque c'était nécessaire. J'ai résolu cela en ajoutant des conditions dans le `useEffect` pour ne récupérer les données que lorsque la page change.
