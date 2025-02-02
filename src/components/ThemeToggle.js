@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from '../App';
+import { ThemeContext } from '../App'; // Assure-toi que le chemin est correct
+
 
 const ThemeToggle = () => {
   const { isDarkTheme, setIsDarkTheme } = useContext(ThemeContext);

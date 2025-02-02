@@ -1,56 +1,74 @@
-import React, { useContext } from 'react';
-import { ThemeContext } from '../App';  // Assure-toi d'importer ThemeContext correctement
-import useProductSearch from '../hooks/useProductSearch';
+import React, { useState } from 'react';
+import useProductManager from './hooks/useProductManager';
 
-const ProductList = ({ searchTerm }) => {
-  const { isDarkTheme } = useContext(ThemeContext);
+const ProductList = () => {
+  const { products, addProduct, removeProduct, updateProduct } = useProductManager();
+  
+  const [newProductName, setNewProductName] = useState('');
+  const [newProductPrice, setNewProductPrice] = useState('');
 
-  const { 
-    products, 
-    loading, 
-    error 
-  } = useProductSearch(searchTerm);  // Passe searchTerm à ton hook
+  // Fonction pour ajouter un produit
+  const handleAddProduct = () => {
+    if (!newProductName || !newProductPrice) return;
+    
+    const newProduct = { 
+      id: Date.now(), 
+      name: newProductName, 
+      price: parseFloat(newProductPrice) 
+    };
+    addProduct(newProduct);
+    
+    // Réinitialisation des champs
+    setNewProductName('');
+    setNewProductPrice('');
+  };
 
-  if (loading) return (
-    <div className="text-center my-4">
-      <div className="spinner-border" role="status">
-        <span className="visually-hidden">Chargement...</span>
-      </div>
-    </div>
-  );
+  // Fonction pour supprimer un produit par son id
+  const handleRemoveProduct = (productId) => {
+    removeProduct(productId);
+  };
 
-  if (error) return (
-    <div className="alert alert-danger" role="alert">
-      Erreur: {error}
-    </div>
-  );
+  // Fonction pour mettre à jour un produit
+  const handleUpdateProduct = (productId) => {
+    const updatedProduct = { id: productId, name: 'Produit Mis à Jour', price: 25 };
+    updateProduct(updatedProduct);
+  };
 
   return (
     <div>
-      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        {products.map(product => (
-          <div key={product.id} className="col">
-            <div className={`card h-100 ${isDarkTheme ? 'bg-dark text-light' : ''}`}>
-              {product.thumbnail && (
-                <img 
-                  src={product.thumbnail} 
-                  className="card-img-top" 
-                  alt={product.title}
-                  style={{ height: '200px', objectFit: 'cover' }}
-                />
-              )}
-              <div className="card-body">
-                <h5 className="card-title">{product.title}</h5>
-                <p className="card-text">{product.description}</p>
-                <p className="card-text">
-                  <strong>Prix: </strong>
-                  {product.price}€
-                </p>
-              </div>
-            </div>
-          </div>
-        ))}
+      <h2>Liste des produits</h2>
+
+      {/* Formulaire d'ajout de produit */}
+      <div>
+        <input
+          type="text"
+          placeholder="Nom du produit"
+          value={newProductName}
+          onChange={(e) => setNewProductName(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Prix du produit"
+          value={newProductPrice}
+          onChange={(e) => setNewProductPrice(e.target.value)}
+        />
+        <button onClick={handleAddProduct}>Ajouter un produit</button>
       </div>
+
+      {/* Affichage des produits */}
+      <ul>
+        {products.length === 0 ? (
+          <p>Aucun produit disponible.</p>
+        ) : (
+          products.map((product) => (
+            <li key={product.id}>
+              <strong>{product.name}</strong> - {product.price}€
+              <button onClick={() => handleUpdateProduct(product.id)}>Modifier</button>
+              <button onClick={() => handleRemoveProduct(product.id)}>Supprimer</button>
+            </li>
+          ))
+        )}
+      </ul>
     </div>
   );
 };

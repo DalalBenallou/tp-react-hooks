@@ -1,19 +1,16 @@
 // src/components/LanguageSelector.js
-import React, { useContext } from 'react';
-import { LanguageContext } from '../contexts/LanguageContext';
+import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 const LanguageSelector = () => {
-  const { language, changeLanguage } = useContext(LanguageContext);
+  const { language, switchLanguage } = useLanguage();
 
   return (
     <div>
-      <select
-        value={language}
-        onChange={(e) => changeLanguage(e.target.value)}
-        aria-label="Sélectionner la langue"
-      >
-        <option value="fr">Français</option>
+      <select value={language} onChange={(e) => switchLanguage(e.target.value)}>
         <option value="en">English</option>
+        <option value="fr">Français</option>
+        {/* Ajoute d'autres langues si nécessaire */}
       </select>
     </div>
   );

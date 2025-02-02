@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { ThemeContext } from '../App';
-import { LanguageContext } from '../contexts/LanguageContext'; // Import du LanguageContext
+import { LanguageContext } from '../contexts/LanguageContext'; // Assurez-vous que le chemin est correct
 import useDebounce from '../hooks/useDebounce';
+import { ThemeContext } from '../App'; // Assure-toi que le chemin est correct
+
 
 const ProductSearch = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -9,12 +11,11 @@ const ProductSearch = ({ onSearch }) => {
   const { isDarkTheme } = useContext(ThemeContext);
   const { language } = useContext(LanguageContext); // Utiliser le LanguageContext pour obtenir la langue
 
-  // Texte du placeholder en fonction de la langue
   const placeholderText = language === 'fr' ? 'Rechercher un produit...' : 'Search for a product...';
 
   useEffect(() => {
     if (debouncedSearchTerm) {
-      onSearch(debouncedSearchTerm);  // Appel de la fonction onSearch
+      onSearch(debouncedSearchTerm);
     }
   }, [debouncedSearchTerm, onSearch]);
 
@@ -24,7 +25,7 @@ const ProductSearch = ({ onSearch }) => {
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder={placeholderText}  // Afficher le texte du placeholder selon la langue
+        placeholder={placeholderText}
         className={`form-control ${isDarkTheme ? 'bg-dark text-light' : ''}`}
       />
     </div>
