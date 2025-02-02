@@ -1,21 +1,24 @@
+# TP React Hooks - Application de Gestion de Produits
+
 ## Exercice 1: Recherche en temps réel
 
 ### Objectif :
-Dans cet exercice, l'objectif était d'implémenter une fonctionnalité de recherche en temps réel pour filtrer les produits en fonction du texte saisi dans la barre de recherche.
+L'objectif de cet exercice était d'implémenter une fonctionnalité de recherche en temps réel. Quand un utilisateur tape un terme dans la barre de recherche, la liste des produits doit se filtrer pour ne montrer que ceux qui correspondent à ce terme.
 
 ### Solution :
-J'ai utilisé le hook `useState` pour stocker le terme de recherche et `useEffect` pour mettre à jour les résultats en temps réel. Le filtrage est effectué sur le titre des produits en fonction du texte saisi. J'ai également implémenté un **debounce** pour éviter des requêtes multiples inutiles lors de la saisie rapide du terme de recherche.
+- **Filtrage en temps réel** : J'ai utilisé le hook `useState` pour maintenir l'état du terme de recherche, et j'ai utilisé `useEffect` pour filtrer les produits en fonction de ce terme.
+- **Débounce** : Pour éviter d'effectuer une recherche à chaque frappe, j'ai implémenté un **debounce** (délai d'attente) afin de ne lancer la recherche qu'après un certain temps d'inactivité de l'utilisateur (ce qui réduit les requêtes inutiles).
+- **Affichage dynamique** : Le filtrage des produits est effectué sur le titre des produits et l'affichage est mis à jour en temps réel sans avoir besoin de recharger la page.
 
 ### Fonctionnement :
-1. L'utilisateur tape un terme de recherche dans la barre de recherche.
-2. Les produits sont filtrés en temps réel en fonction du texte saisi.
-3. Le filtre est appliqué sur le titre des produits.
+1. L'utilisateur tape un texte dans la barre de recherche.
+2. Le filtre est appliqué en temps réel sur les produits dont le titre correspond au texte saisi.
+3. Les produits sont affichés dynamiquement sur la page.
 
 ### Capture d'écran avant la recherche :
 ![Avant la recherche](./assets/before.png)
 
-### Capture d'écran après avoir saisi "chaise" dans la barre de recherche :
+### Capture d'écran après avoir saisi un terme de recherche :
 ![Après la recherche](./assets/after.png)
 
-### Difficultés rencontrées et solutions :
-- **Problème de performance** : Lors de la saisie rapide, l'application envoyait trop de requêtes. J'ai résolu cela en utilisant un debounce pour attendre que l'utilisateur cesse de taper avant de filtrer les résultats.
+

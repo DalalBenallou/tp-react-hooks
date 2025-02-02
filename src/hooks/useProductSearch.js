@@ -1,53 +1,32 @@
-import { useState, useEffect } from "react";
-import useDebounce from "./useDebounce"; // Import du hook personnalisé
+import { useState, useEffect } from 'react';
 
 const useProductSearch = (searchTerm) => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
-
-  const debouncedSearchTerm = useDebounce(searchTerm, 500); // Appliquer le debounce
 
   useEffect(() => {
     const fetchProducts = async () => {
-      setLoading(true);
-      setError(null);
-
       try {
-        // Simulation d'une API avec pagination
-        const response = await fetch(`https://api.daaif.net/products?search=${debouncedSearchTerm}&page=${currentPage}&limit=${itemsPerPage}`);
-        if (!response.ok) throw new Error("Erreur réseau");
-
+        const response = await fetch('https://api.daaif.net/products?delay=1000');
+        if (!response.ok) throw new Error('Erreur réseau');
         const data = await response.json();
         setProducts(data.products);
+        setLoading(false);
       } catch (err) {
         setError(err.message);
-      } finally {
         setLoading(false);
       }
     };
 
     fetchProducts();
-  }, [debouncedSearchTerm, currentPage]); // Dépendances : recherche + pagination
+  }, []);  // Tu peux aussi mettre à jour ce useEffect si tu veux inclure searchTerm comme dépendance pour refiltrer les produits.
 
-  const nextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
+  const filteredProducts = products.filter((product) =>
+    product.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  const previousPage = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-  };
-
-  return {
-    products,
-    loading,
-    error,
-    currentPage,
-    nextPage,
-    previousPage,
-  };
+  return { products: filteredProducts, loading, error };
 };
 
 export default useProductSearch;
